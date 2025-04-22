@@ -13,8 +13,7 @@ Future<void> main() async {
 
 /// Initialize flutter_local_notifications
 Future<void> _initNotifications() async {
-  const androidSettings =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+  const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
   const iosSettings = DarwinInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
@@ -29,8 +28,7 @@ Future<void> _initNotifications() async {
 
   await _notificationsPlugin.initialize(
     settings,
-    onDidReceiveNotificationResponse:
-        (NotificationResponse response) {
+    onDidReceiveNotificationResponse: (NotificationResponse response) {
       debugPrint('Tapped notification: ${response.payload}');
     },
   );
@@ -67,13 +65,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: _isLinking
-                  ? null
-                  : () {
-                      _openPlaid();
-                    },
-              child: Text(
-                  _isLinking ? 'Connecting…' : 'Connect bank account'),
+              onPressed:
+                  _isLinking
+                      ? null
+                      : () {
+                        _openPlaid();
+                      },
+              child: Text(_isLinking ? 'Connecting…' : 'Connect bank account'),
             ),
             const SizedBox(height: 20),
             Expanded(child: _buildSampleChart()),
@@ -89,20 +87,22 @@ class _HomePageState extends State<HomePage> {
 
     try {
       final config = LinkTokenConfiguration(
-          token: '<SERVER_GENERATED_LINK_TOKEN>');
+        token: '<SERVER_GENERATED_LINK_TOKEN>',
+      );
       // Create Link
-      await PlaidLink.create(configuration: config);               
+      await PlaidLink.create(configuration: config);
 
       // Subscribe to Link events
-      PlaidLink.onEvent.listen(
-          (e) => debugPrint('Plaid event: ${e.name}'));          
+      PlaidLink.onEvent.listen((e) => debugPrint('Plaid event: ${e.name}'));
       PlaidLink.onExit.listen(
-          (exit) => debugPrint('Plaid exit: ${exit.error}'));      
-      PlaidLink.onSuccess.listen((success) =>
-          debugPrint('Plaid success: ${success.publicToken}'));
+        (exit) => debugPrint('Plaid exit: ${exit.error}'),
+      );
+      PlaidLink.onSuccess.listen(
+        (success) => debugPrint('Plaid success: ${success.publicToken}'),
+      );
 
       // Open Link UI
-      await PlaidLink.open();                                     
+      await PlaidLink.open();
     } catch (err) {
       debugPrint('Error launching Plaid: $err');
     } finally {
@@ -111,11 +111,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSampleChart() {
-    final data = [
-      _Data('Mon', 50),
-      _Data('Tue', 30),
-      _Data('Wed', 80),
-    ];
+    final data = [_Data('Mon', 50), _Data('Tue', 30), _Data('Wed', 80)];
 
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(),
