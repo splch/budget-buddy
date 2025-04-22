@@ -13,6 +13,7 @@ dependencies:
   flutter_local_notifications: ^19.1.0
   plaid_flutter: ^4.2.0
   syncfusion_flutter_charts: ^29.1.39
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
